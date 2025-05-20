@@ -1,0 +1,61 @@
+Sure, to create a CSS module for the `ActiveUserList` component, we can use the following steps:
+
+1. Create a CSS file with the same name as your component but with a `.module.css` extension. For example, `ActiveUserList.module.css`.
+
+2. Define your styles in this file.
+
+Here's an example of how you can define styles for the `ActiveUserList` component:
+
+```css
+/* ActiveUserList.module.css */
+
+.list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.listItem {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.loading {
+  color: #999;
+  font-size: 16px;
+}
+
+.error {
+  color: red;
+  font-size: 18px;
+}
+```
+
+3. Import and use your styles in your component:
+
+```jsx
+// Import necessary libraries
+import React, { useState, useEffect } from 'react';
+import styles from './ActiveUserList.module.css';
+
+// Component implementation...
+
+return (
+  <div>
+    {loading ? (
+      <p className={styles.loading}>Loading...</p>
+    ) : error ? (
+      <p className={styles.error}>Error: {error.message}</p>
+    ) : (
+      <ul className={styles.list}>
+        {users.map((user: User) => (
+          <li key={user.id} className={styles.listItem}>{user.name}</li>
+        ))}
+      </ul>
+    )}
+  </div>
+);
+
+// Export statement...
+```
+        
+With CSS modules, each component's styles are scoped locally by default. This means you don't have to worry about styles from different components conflicting with each other.
