@@ -1,0 +1,89 @@
+Here's the CSS module equivalent for the LoginForm component. 
+
+```css
+/* LoginForm.module.css */
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.input {
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.button {
+  padding: 10px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+```
+
+And here is how to use it in your LoginForm component:
+
+```jsx
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import styles from './LoginForm.module.css';
+
+/**
+ * LoginForm Functional Component
+ * @param {Object} props 
+ * @returns JSX.Element
+ */
+const LoginForm = ({ onSubmit }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+
+  const validateForm = () => {
+    if (!username || !password) {
+      setError('Please fill in all fields');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      onSubmit({ username, password });
+    }
+  };
+
+  return (
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <h2>Login</h2>
+      {error && <div className={styles.error}>{error}</div>}
+      <input 
+        className={styles.input}
+        type="text" 
+        placeholder="Username" 
+        value={username} 
+        onChange={e => setUsername(e.target.value)} 
+      />
+      <input 
+        className={styles.input}
+        type="password" 
+        placeholder="Password" 
+        value={password} 
+        onChange={e => setPassword(e.target.value)} 
+      />
+      <button className={styles.button} type="submit">Submit</button>
+    </form>
+  );
+};
+
+LoginForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+export default LoginForm;
+```
+
+This way, you are utilizing CSS modules to ensure that your CSS class names are scoped locally to the LoginForm component and won't conflict with CSS in other parts of your application.
